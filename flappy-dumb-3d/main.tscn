@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7nhqurmd1btk"]
+
+[ext_resource type="PackedScene" uid="uid://da5rngecb7dha" path="res://player.tscn" id="1_0f1w8"]
+[ext_resource type="Script" path="res://instanciador_de_tubos.gd" id="2_3i2xf"]
+[ext_resource type="PackedScene" uid="uid://ber2gvhhgkyio" path="res://tuberia.tscn" id="2_p0fwq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_67uhw"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk2bj"]
+albedo_color = Color(1, 1, 0.25098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ic0pk"]
+material = SubResource("StandardMaterial3D_jk2bj")
+
+[node name="Main" type="Node"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16912, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_67uhw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_ic0pk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.875017, 0.484092, 0, -0.484092, 0.875017, 0, 7.66095, 0)
+
+[node name="Player" parent="." instance=ExtResource("1_0f1w8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.71812, 0)
+
+[node name="InstanciadorDeTubos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.566836, 0)
+script = ExtResource("2_3i2xf")
+
+[node name="TuboPadre" type="Node3D" parent="InstanciadorDeTubos"]
+
+[node name="Tuberia" parent="InstanciadorDeTubos/TuboPadre" instance=ExtResource("2_p0fwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.2577, -0.566836, 0)
+
+[node name="Tuberia2" parent="InstanciadorDeTubos/TuboPadre" instance=ExtResource("2_p0fwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1266, 1.21931, 0)
+
+[node name="Tuberia3" parent="InstanciadorDeTubos/TuboPadre" instance=ExtResource("2_p0fwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.77, 1.94848, 0)
+
+[node name="Tuberia4" parent="InstanciadorDeTubos/TuboPadre" instance=ExtResource("2_p0fwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.94604, -0.566836, 0)
+
+[node name="Tuberia5" parent="InstanciadorDeTubos/TuboPadre" instance=ExtResource("2_p0fwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.07144, -2.81609, 0)
+
+[node name="arribaSpawn" type="Marker3D" parent="InstanciadorDeTubos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.510202, 1.77956, 0)
+
+[node name="abajoSpawn" type="Marker3D" parent="InstanciadorDeTubos"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.64501, 0.496704, 0)
+
+[node name="Timer" type="Timer" parent="InstanciadorDeTubos"]
+wait_time = 2.884
+autostart = true
+
+[connection signal="timeout" from="InstanciadorDeTubos/Timer" to="InstanciadorDeTubos" method="_on_timer_timeout"]

@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://ber2gvhhgkyio"]
+
+[ext_resource type="Script" path="res://tuberia.gd" id="1_kyyg5"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_e4ijm"]
+height = 6.0
+radius = 0.3
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0yroa"]
+height = 5.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ert27"]
+albedo_color = Color(0.105882, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qhkul"]
+material = SubResource("StandardMaterial3D_ert27")
+height = 5.0
+
+[node name="Tuberia" type="Node3D"]
+script = ExtResource("1_kyyg5")
+
+[node name="coin" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="coin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9485, 6.7223, 0)
+shape = SubResource("CylinderShape3D_e4ijm")
+
+[node name="pipes" type="Area3D" parent="."]
+
+[node name="Tubo" type="CollisionShape3D" parent="pipes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 9.55867, 0)
+shape = SubResource("CylinderShape3D_0yroa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pipes/Tubo"]
+mesh = SubResource("CylinderMesh_qhkul")
+
+[node name="Tubo2" type="CollisionShape3D" parent="pipes"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.17001, 0)
+shape = SubResource("CylinderShape3D_0yroa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pipes/Tubo2"]
+mesh = SubResource("CylinderMesh_qhkul")
+
+[connection signal="body_entered" from="coin" to="." method="_on_coin_body_entered"]
+[connection signal="body_entered" from="pipes" to="." method="_on_pipes_body_entered"]

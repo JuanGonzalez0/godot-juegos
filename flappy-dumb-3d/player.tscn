@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://da5rngecb7dha"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_a00ta"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1exnl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2mppf"]
+albedo_color = Color(1, 0.356863, 0.105882, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_x7p8u"]
+material = SubResource("StandardMaterial3D_2mppf")
+
+[node name="Player" type="RigidBody3D"]
+script = ExtResource("1_a00ta")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_1exnl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_x7p8u")
+
+[node name="Camera" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Camera"]
+transform = Transform3D(1, 0, 0, 0, 0.989165, 0.146808, 0, -0.146808, 0.989165, -0.0804651, 0.436531, 3.39024)
